@@ -6,21 +6,30 @@ import Hand from '../components/hand';
 import './deck.css';
 
 class Deck extends Component {
+  state = {
+    isShow: true
+  };
+
   componentDidMount() {
     this.props.getDeck();
   }
 
-  handleClick = e => {
-    // e.preventDefault();
-    this.props.getHand(this.props.deck.deck_id);
+  handleDeal = e => {
+    e.preventDefault();
+    this.props.getHand(this.props.deck.deck_id, 5);
+    this.setState(state => ({ isShow: !state.isShow }));
   };
 
   render() {
     return (
       <div className="deckWrapper">
-        <button className="dealButton" onClick={this.handleClick}>
-          Deal
-        </button>
+        {this.state.isShow ? (
+          <button className="dealButton" onClick={this.handleDeal}>
+            Deal
+          </button>
+        ) : (
+          <button className="goButton">Go</button>
+        )}
         <div className="currentHand">
           {this.props.hand.map((currentHand, index) => {
             return <Hand key={index} currentHand={currentHand} />;

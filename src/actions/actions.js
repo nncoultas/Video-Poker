@@ -39,10 +39,10 @@ export const getDeck = () => {
   };
 };
 
-export const getHand = deck_id => {
+export const getHand = (deck_id, amount) => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/${deck_id}/draw/?count=5`)
+      .get(`${ROOT_URL}/${deck_id}/draw/?count=${amount}`)
       .then(response => {
         dispatch({
           type: GET_HAND,
