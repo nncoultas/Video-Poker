@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getDeck, getHand } from '../actions/actions';
 
 import Hand from '../components/hand';
+import './deck.css';
 
 class Deck extends Component {
   componentDidMount() {
