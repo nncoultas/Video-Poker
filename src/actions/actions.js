@@ -5,6 +5,7 @@ const ROOT_URL = 'https://deckofcardsapi.com/api/deck';
 export const GET_DECK = 'GET_DECK';
 export const GET_HAND = 'GET_HAND';
 export const DISCARD_CARD = 'DISCARD_CARD';
+export const REPLACE_CARD = 'REPLACE_CARD';
 
 export const DECK_ERROR = 'DECK_ERROR';
 export const HAND_ERROR = 'HAND_ERROR';
@@ -39,10 +40,10 @@ export const getDeck = () => {
   };
 };
 
-export const getHand = (deck_id, amount) => {
+export const getHand = deck_id => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/${deck_id}/draw/?count=${amount}`)
+      .get(`${ROOT_URL}/${deck_id}/draw/?count=5`)
       .then(response => {
         dispatch({
           type: GET_HAND,
@@ -67,6 +68,22 @@ export const discardCard = (deck_id, card) => {
       })
       .catch(() => {
         dispatch(handError('Failed to discard card'));
+      });
+  };
+};
+
+export const replaceCard = (deck_id, amount) => {
+  return dispatch => {
+    axios
+      .get(`${ROOT_URL}/${deck_id}/draw/?count=${amount}`)
+      .then(response => {
+        dispatch({
+          type: REPLACE_CARD,
+          payload: response.data
+        });
+      })
+      .catch(() => {
+        dispatch(handError('Failed to replace discarded cards'));
       });
   };
 };
