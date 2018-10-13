@@ -11,7 +11,7 @@ class Deck extends Component {
   }
 
   handleClick = e => {
-    e.preventDefault();
+    // e.preventDefault();
     this.props.getHand(this.props.deck.deck_id);
   };
 

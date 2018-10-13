@@ -4,6 +4,7 @@ const ROOT_URL = 'https://deckofcardsapi.com/api/deck';
 
 export const GET_DECK = 'GET_DECK';
 export const GET_HAND = 'GET_HAND';
+export const DISCARD_CARD = 'DISCARD_CARD';
 
 export const DECK_ERROR = 'DECK_ERROR';
 export const HAND_ERROR = 'HAND_ERROR';
@@ -50,6 +51,22 @@ export const getHand = deck_id => {
       })
       .catch(() => {
         dispatch(handError('Failed to deal five cards'));
+      });
+  };
+};
+
+export const discardCard = (deck_id, card) => {
+  return dispatch => {
+    axios
+      .get(`${ROOT_URL}/${deck_id}/pile/discard/add/?cards=${card}`)
+      .then(response => {
+        dispatch({
+          type: DISCARD_CARD,
+          payload: card
+        });
+      })
+      .catch(() => {
+        dispatch(handError('Failed to discard card'));
       });
   };
 };
