@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getDeck } from '../actions/actions';
+import { getDeck, getHand } from '../actions/actions';
+
+import Hand from '../components/hand';
 
 class Deck extends Component {
   componentDidMount() {
     this.props.getDeck();
   }
 
+  handleClick = e => {
+    e.preventDefault();
+    this.props.getHand(this.props.deck.deck_id);
+  };
+
   render() {
     return (
       <div className="deckWrapper">
-        <button className="dealButton">Deal</button>
+        <button className="dealButton" onClick={this.handleClick}>
+          Deal
+        </button>
+        <div className="currentHand">
+          {this.props.hand.map((currentHand, index) => {
+            return <Hand key={index} currentHand={currentHand} />;
+          })}
+        </div>
       </div>
     );
   }
@@ -18,11 +32,12 @@ class Deck extends Component {
 
 const mapStateToProps = state => {
   return {
-    deck: state.deck
+    deck: state.deck,
+    hand: state.hand
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getDeck }
+  { getDeck, getHand }
 )(Deck);
