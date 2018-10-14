@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { discardCard } from '../actions/actions';
 
 class Hand extends Component {
+  componentDidMount() {}
+
   handleClick = () => {
     const deleteCard = window.confirm(
       'Are you sure you want to discard this card?'
@@ -14,10 +16,10 @@ class Hand extends Component {
       );
     }
   };
+
   render() {
     return (
       <div className="handWrapper">
-        {console.log(this.props.currentHand)}
         <img
           src={this.props.currentHand.image}
           alt="cards"

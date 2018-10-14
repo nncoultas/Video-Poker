@@ -6,6 +6,7 @@ export const GET_DECK = 'GET_DECK';
 export const GET_HAND = 'GET_HAND';
 export const DISCARD_CARD = 'DISCARD_CARD';
 export const REPLACE_CARD = 'REPLACE_CARD';
+export const REMOVE_REPLACE_CARD = 'REMOVE_REPLACE_CARD';
 
 export const DECK_ERROR = 'DECK_ERROR';
 export const HAND_ERROR = 'HAND_ERROR';
@@ -40,10 +41,10 @@ export const getDeck = () => {
   };
 };
 
-export const getHand = deck_id => {
+export const getHand = (deck_id, amount) => {
   return dispatch => {
     axios
-      .get(`${ROOT_URL}/${deck_id}/draw/?count=5`)
+      .get(`${ROOT_URL}/${deck_id}/draw/?count=${amount}`)
       .then(response => {
         dispatch({
           type: GET_HAND,
@@ -85,5 +86,12 @@ export const replaceCard = (deck_id, amount) => {
       .catch(() => {
         dispatch(handError('Failed to replace discarded cards'));
       });
+  };
+};
+
+export const removeReplaceCard = replacement => {
+  return {
+    type: REMOVE_REPLACE_CARD,
+    payload: replacement
   };
 };

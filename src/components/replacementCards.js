@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class ReplacementCards extends Component {
   render() {
     return (
       <div className="replacementWrapper">
-        {/* {console.log(this.props)} */}
-        <img
-          src={this.props.replaceCard.image}
-          alt="cards"
-          onClick={this.handleClick}
-        />
+        <img src={this.props.replaceCard.image} alt="cards" />
       </div>
     );
   }
 }
 
-export default ReplacementCards;
+const mapStateToProps = state => {
+  return {
+    deck: state.deck,
+    hand: state.hand,
+    replacement: state.replacement
+  };
+};
+
+export default connect(mapStateToProps)(ReplacementCards);
