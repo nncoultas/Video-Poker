@@ -24,8 +24,9 @@ class Deck extends Component {
 
   handleDeal = e => {
     e.preventDefault();
+    // removes replaced card from the new deck so it only deals 5 cards
     this.props.removeReplaceCard();
-    this.props.getHand(this.props.deck.deck_id, 5);
+    this.props.getHand('new', 5);
     this.setState(state => ({
       isShow: !state.isShow,
       score: 0,
@@ -36,6 +37,7 @@ class Deck extends Component {
 
   handleReplace = e => {
     e.preventDefault();
+    // gets the exact amount of cards needed to replace the discarded ones
     let amount = 5 - this.props.hand.length;
     this.props.replaceCard(this.props.deck.deck_id, amount);
     this.setState(state => ({ isShow: !state.isShow }));
@@ -54,7 +56,6 @@ class Deck extends Component {
     for (let i = 0; i < this.state.values.length; i++) {
       for (let j = i + 1; j < this.state.values.length; j++) {
         if (this.state.values[i].value === this.state.values[j].value) {
-          console.log(this.state.values[i].value, this.state.values[j].value);
           return this.setState({ score: 100 });
         }
       }
