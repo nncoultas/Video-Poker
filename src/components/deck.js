@@ -14,8 +14,7 @@ import './deck.css';
 class Deck extends Component {
   state = {
     isShow: true,
-    score: 0,
-    values: []
+    score: 0
   };
 
   componentDidMount() {
@@ -29,10 +28,8 @@ class Deck extends Component {
     this.props.getHand('new', 5);
     this.setState(state => ({
       isShow: !state.isShow,
-      score: 0,
-      values: []
+      score: 0
     }));
-    this.scoreBoard();
   };
 
   handleReplace = e => {
@@ -41,32 +38,6 @@ class Deck extends Component {
     let amount = 5 - this.props.hand.length;
     this.props.replaceCard(this.props.deck.deck_id, amount);
     this.setState(state => ({ isShow: !state.isShow }));
-  };
-
-  scoreBoard = () => {
-    this.props.hand.map(currentHand => {
-      return this.state.values.push(currentHand);
-    });
-
-    this.props.replacement.map(replaceCard => {
-      return this.state.values.push(replaceCard);
-    });
-
-    // finds pairs by number not suit and changes score to 100
-    for (let i = 0; i < this.state.values.length; i++) {
-      for (let j = i + 1; j < this.state.values.length; j++) {
-        if (this.state.values[i].value === this.state.values[j].value) {
-          return this.setState({ score: 100 });
-        }
-      }
-    }
-
-    // find number in order just not consecutively
-    // for (let i = 0; i < this.state.values.length - 1; i++) {
-    //   if (this.state.values[i].value < this.state.values[i + 1].value) {
-    //     return this.setState({ score: 500 });
-    //   }
-    // }
   };
 
   render() {
